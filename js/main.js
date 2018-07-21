@@ -32,9 +32,11 @@ fetchNeighborhoods = () => {
  */
 fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
   const select = document.getElementById('neighborhoods-select');
+  // Add ARIA Role for sreen readers
   select.setAttribute('role', 'listbox');
   neighborhoods.forEach(neighborhood => {
     const option = document.createElement('option');
+    // Add ARIA Role for sreen readers
     option.setAttribute('role', 'option');
     option.innerHTML = neighborhood;
     option.value = neighborhood;
@@ -61,9 +63,11 @@ fetchCuisines = () => {
  */
 fillCuisinesHTML = (cuisines = self.cuisines) => {
   const select = document.getElementById('cuisines-select');
+  // Add ARIA Role for sreen readers
   select.setAttribute('role', 'listbox');
   cuisines.forEach(cuisine => {
     const option = document.createElement('option');
+    // Add ARIA Role for sreen readers
     option.setAttribute('role', 'option');
     option.innerHTML = cuisine;
     option.value = cuisine;
@@ -181,7 +185,9 @@ createRestaurantHTML = (restaurant) => {
   li.append(address);
 
   const more = document.createElement('a');
+  // Add ARIA Label for sreen readers
   more.setAttribute('aria-label', 'View details');
+  // Add ARIA Role for sreen readers
   more.setAttribute('role', 'link');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
