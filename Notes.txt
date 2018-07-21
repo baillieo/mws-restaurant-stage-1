@@ -7,7 +7,7 @@ Local Server*
 HTML
 - Optimise Images*
 - Alt Tags(JS)*
-- Semantics
+- Semantics*
 
 CSS
 - Responsive: homepage
