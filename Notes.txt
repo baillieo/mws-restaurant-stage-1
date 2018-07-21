@@ -5,7 +5,7 @@ Mapbox Api Key*
 Local Server*
 
 HTML
-- Optimise Images
+- Optimise Images*
 - Alt Tags(JS)
 - Semantics
 
