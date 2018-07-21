@@ -2,7 +2,7 @@
 
 Fork & Clone*
 Mapbox Api Key*
-Local Server
+Local Server*
 
 HTML
 - Optimise Images
