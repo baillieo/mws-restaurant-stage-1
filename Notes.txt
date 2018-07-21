@@ -6,7 +6,7 @@ Local Server*
 
 HTML
 - Optimise Images*
-- Alt Tags(JS)
+- Alt Tags(JS)*
 - Semantics
 
 CSS
