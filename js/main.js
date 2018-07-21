@@ -32,8 +32,10 @@ fetchNeighborhoods = () => {
  */
 fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
   const select = document.getElementById('neighborhoods-select');
+  select.setAttribute('role', 'listbox');
   neighborhoods.forEach(neighborhood => {
     const option = document.createElement('option');
+    option.setAttribute('role', 'option');
     option.innerHTML = neighborhood;
     option.value = neighborhood;
     select.append(option);
@@ -59,9 +61,10 @@ fetchCuisines = () => {
  */
 fillCuisinesHTML = (cuisines = self.cuisines) => {
   const select = document.getElementById('cuisines-select');
-
+  select.setAttribute('role', 'listbox');
   cuisines.forEach(cuisine => {
     const option = document.createElement('option');
+    option.setAttribute('role', 'option');
     option.innerHTML = cuisine;
     option.value = cuisine;
     select.append(option);
@@ -157,6 +160,7 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
+  li.setAttribute('role', 'listitem');
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
@@ -177,6 +181,8 @@ createRestaurantHTML = (restaurant) => {
   li.append(address);
 
   const more = document.createElement('a');
+  more.setAttribute('aria-label', 'View details');
+  more.setAttribute('role', 'link');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
   li.append(more)
