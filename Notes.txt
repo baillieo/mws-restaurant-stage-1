@@ -1,0 +1,18 @@
+Fork & Clone
+Mapbox Api Key
+Local Server
+
+HTML
+- Optimise Images
+- Alt Tags(JS)
+- Semantics
+
+CSS
+- Responsive: homepage
+- Responsive: Restaurant page
+- Focus
+
+JS
+- Service Worker
+
+READme
