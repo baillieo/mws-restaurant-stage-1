@@ -32,7 +32,7 @@
 	<!-- End header -->
 
 	<!-- Beginning main -->
-	<main id="maincontent">
+	<main id="maincontent" class="maincontent--inside">
 		<!-- Beginning map -->
 		<section id="map-container">
 			<div id="map" role="application"></div>
@@ -40,11 +40,17 @@
 		<!-- End map -->
 		<!-- Beginning restaurant -->
 		<section id="restaurant-container">
-			<h1 id="restaurant-name"></h1>
-			<img id="restaurant-img">
-			<p id="restaurant-cuisine"></p>
-			<p id="restaurant-address"></p>
-			<table id="restaurant-hours"></table>
+			<div id="restaurant-content">
+				<div id="restaurant-box">
+					<h1 id="restaurant-name"></h1>
+					<img id="restaurant-img">
+					<p id="restaurant-cuisine"></p>
+				</div>
+				<div id="restaurant-box">
+					<p id="restaurant-address"></p>
+					<table id="restaurant-hours"></table>
+				</div>
+			</div>
 		</section>
 		<!-- End restaurant -->
 		<!-- Beginning reviews -->

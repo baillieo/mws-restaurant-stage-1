@@ -12,8 +12,8 @@ HTML
 - ARIA Revisited
 
 CSS
-- Responsive: homepage
-- Responsive: Restaurant page
+- Responsive: homepage*
+- Responsive: Restaurant page*
 - Focus
 
 JS
