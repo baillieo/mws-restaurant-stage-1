@@ -165,6 +165,8 @@ createReviewHTML = (review) => {
   const comments = document.createElement('p');
   comments.innerHTML = review.comments;
   li.appendChild(comments);
+  // Add ARIA listitem role
+  li.setAttribute('role', 'listitem');
 
   return li;
 }
