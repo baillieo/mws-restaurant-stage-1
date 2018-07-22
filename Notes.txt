@@ -17,6 +17,6 @@ CSS
 - Focus*
 
 JS
-- Service Worker
+- Service Worker*
 
-READme
+READme*
