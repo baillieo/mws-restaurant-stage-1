@@ -8,13 +8,13 @@ HTML
 - Optimise Images*
 - Alt Tags(JS)*
 - Semantics*
-- tabindex
-- ARIA Revisited
+- tabindex*
+- ARIA Revisited*
 
 CSS
 - Responsive: homepage*
 - Responsive: Restaurant page*
-- Focus
+- Focus*
 
 JS
 - Service Worker
