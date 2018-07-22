@@ -172,7 +172,7 @@ createRestaurantHTML = (restaurant) => {
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   li.append(image);
 
-  const name = document.createElement('h1');
+  const name = document.createElement('h2');
   name.innerHTML = restaurant.name;
   li.append(name);
 
@@ -186,7 +186,7 @@ createRestaurantHTML = (restaurant) => {
 
   const more = document.createElement('a');
   // Add ARIA Label for sreen readers
-  more.setAttribute('aria-label', 'View details');
+  more.setAttribute('aria-label', 'View details for ' + restaurant.name);
   // Add ARIA Role for sreen readers
   more.setAttribute('role', 'link');
   more.innerHTML = 'View Details';
