@@ -8,6 +8,8 @@ HTML
 - Optimise Images*
 - Alt Tags(JS)*
 - Semantics*
+- tabindex
+- ARIA Revisited
 
 CSS
 - Responsive: homepage
