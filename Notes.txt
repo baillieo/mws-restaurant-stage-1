@@ -1,5 +1,6 @@
 * - Done
 
+// Main
 Fork & Clone*
 Mapbox Api Key*
 Local Server*
@@ -20,3 +21,8 @@ JS
 - Service Worker*
 
 READme*
+
+
+//Review
+- Semantics*
+- Change alt tags*

@@ -5,7 +5,6 @@
     "neighborhood": "Manhattan",
     "photograph": "1.jpg",
     "address": "171 E Broadway, New York, NY 10002",
-    "alt": "Mission Chinese Food's dining area",
     "latlng": {
       "lat": 40.713829,
       "lng": -73.989667
@@ -45,7 +44,6 @@
     "neighborhood": "Brooklyn",
     "photograph": "2.jpg",
     "address": "919 Fulton St, Brooklyn, NY 11238",
-    "alt": "Emily's margherita pizza",
     "latlng": {
       "lat": 40.683555,
       "lng": -73.966393
@@ -85,7 +83,6 @@
     "neighborhood": "Manhattan",
     "photograph": "3.jpg",
     "address": "1 E 32nd St, New York, NY 10016",
-    "alt": "Kang Ho Dong Baekjeong's dining area",
     "latlng": {
       "lat": 40.747143,
       "lng": -73.985414
@@ -125,7 +122,6 @@
     "neighborhood": "Manhattan",
     "photograph": "4.jpg",
     "address": "205 E Houston St, New York, NY 10002",
-    "alt": "Katz's Delicatessen's building",
     "latlng": {
       "lat": 40.722216,
       "lng": -73.987501
@@ -165,7 +161,6 @@
     "neighborhood": "Brooklyn",
     "photograph": "5.jpg",
     "address": "261 Moore St, Brooklyn, NY 11206",
-    "alt": "Roberta's Pizza's dining area",
     "latlng": {
       "lat": 40.705089,
       "lng": -73.933585
@@ -205,7 +200,6 @@
     "neighborhood": "Brooklyn",
     "photograph": "6.jpg",
     "address": "454 Van Brunt St, Brooklyn, NY 11231",
-    "alt": "Hometown BBQ's dining area",
     "latlng": {
       "lat": 40.674925,
       "lng": -74.016162
@@ -245,7 +239,6 @@
     "neighborhood": "Manhattan",
     "photograph": "7.jpg",
     "address": "430 E 9th St, New York, NY 10009",
-    "alt": "Superiority Burger's restaurant window view",
     "latlng": {
       "lat": 40.727397,
       "lng": -73.983645
@@ -285,7 +278,6 @@
     "neighborhood": "Manhattan",
     "photograph": "8.jpg",
     "address": "131 Sullivan St, New York, NY 10012",
-    "alt": "The Dutch restaurant",
     "latlng": {
       "lat": 40.726584,
       "lng": -74.002082
@@ -325,7 +317,6 @@
     "neighborhood": "Queens",
     "photograph": "9.jpg",
     "address": "1209 Jackson Ave, Queens, NY 11101",
-    "alt": "Mu Ramen's dining area",
     "latlng": {
       "lat": 40.743797,
       "lng": -73.950652
@@ -365,7 +356,6 @@
     "neighborhood": "Queens",
     "photograph": "10.jpg",
     "address": "5-48 49th Ave, Queens, NY 11101",
-    "alt": "Casa Enrique's bar",
     "latlng": {
       "lat": 40.743394,
       "lng": -73.954235
