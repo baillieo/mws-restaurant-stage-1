@@ -1,15 +1,33 @@
 {
-  "name": "Test",
+  "name": "gulpTemplate",
   "version": "1.0.0",
-  "description": "default gulp config",
-  "main": "dist/main.min.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
     "browser-sync": "^2.24.6",
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-babel": "^7.0.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-jshint": "^2.1.0",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-terser": "^1.0.1",
+    "gulp-uglify": "^3.0.1",
+    "imagemin-pngquant": "^6.0.0",
+    "jshint": "^2.9.5",
+    "jshint-stylish": "^2.2.1",
+    "yarn": "^1.7.0"
   }
 }
