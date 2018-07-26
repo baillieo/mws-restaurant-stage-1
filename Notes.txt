@@ -36,7 +36,7 @@ READme*
   	*Attempted to transpile from ES6 to ES5 but resulted in hoisting issues
   	*Attempted to concatenate js files but issues with DBhelper async calls not responding soon enough	
 
-- AJAX from development server
+- AJAX from development server*
 - JSON reoponses are cached in indexedDB
 
 - maintain responsiveness
