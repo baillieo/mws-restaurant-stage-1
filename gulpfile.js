@@ -66,7 +66,7 @@ gulp.task('scripts', function(){
 
 // js production
 gulp.task('scripts-dist', function(){
-	return gulp.src(['./src/js/dbhelper.js', './src/js/main.js', './src/js/restaraunt_info.js'])
+	return gulp.src(['./src/js/dbhelper.js', './src/js/main.js', './src/js/restaurant_info.js'])
 		.pipe(plumber())
 		.pipe(sourcemaps.init())
 		.pipe(uglify())
@@ -74,23 +74,14 @@ gulp.task('scripts-dist', function(){
 		.pipe(gulp.dest('./js'));
 });
 
-// js hint
-gulp.task('jshint', function () {
-    return gulp.src(['./src/js/main.js'])
-      	.pipe(plumber())
-	    .pipe(jshint())
-	    .pipe(jshint.reporter('jshint-stylish'))
-	    .pipe(notify('JShint - Successful'))
-});
-
 // development
-gulp.task('default', ['copy-images', 'sass', 'jshint', 'scripts'], function() {
+gulp.task('default', ['copy-images', 'sass', 'scripts'], function() {
 	browserSync.init({
 		server: "./",
 		port: 8000
 	});
 	gulp.watch("./src/scss/*.scss", ['sass', 'css-dist']);
-	gulp.watch("./src/js/*.js", ['jshint']);
+	gulp.watch("./src/js/*.js", ['scripts']);
 	gulp.watch("./index.html").on('change', browserSync.reload);
 });
 
@@ -98,6 +89,5 @@ gulp.task('default', ['copy-images', 'sass', 'jshint', 'scripts'], function() {
 gulp.task('dist', [
 	'copy-images',
 	'sass-dist',
-	'jshint',
 	'scripts-dist'
 ]);
