@@ -36,7 +36,7 @@ class DBHelper {
     // xhr.send();
     fetch(DBHelper.DATABASE_URL)
     .then(res => res.json())
-    .then(callback(null, res));
+    .then(res => callback(null, res));
   }
 
   /**

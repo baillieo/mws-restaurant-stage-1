@@ -60,13 +60,13 @@ gulp.task('sass-dist', function () {
 
 // js
 gulp.task('scripts', function(){
-	return gulp.src(['./src/js/dbhelper.js', './src/js/main.js', './src/js/restaurant_info.js'])
+	return gulp.src(['./src/js/idb.js', './src/js/dbhelper.js', './src/js/main.js', './src/js/restaurant_info.js'])
 		.pipe(gulp.dest('./js'));
 });
 
 // js production
 gulp.task('scripts-dist', function(){
-	return gulp.src(['./src/js/dbhelper.js', './src/js/main.js', './src/js/restaurant_info.js'])
+	return gulp.src(['./src/js/idb.js', './src/js/dbhelper.js', './src/js/main.js', './src/js/restaurant_info.js'])
 		.pipe(plumber())
 		.pipe(sourcemaps.init())
 		.pipe(uglify())
