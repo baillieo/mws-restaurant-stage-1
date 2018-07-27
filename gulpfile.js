@@ -41,24 +41,8 @@ gulp.task('sass', function () {
 		}))
 		.pipe(sourcemaps.write('./maps'))
 		.pipe(gulp.dest('./css'))
-		.pipe(notify('SCSS Compile - Successful'))
 		.pipe(browserSync.stream());
 });
-
-// sass production
-gulp.task('sass-dist', function () {
-	return gulp.src('./src/scss/styles.scss')
-		.pipe(sourcemaps.init())
-		.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-		.pipe(autoprefixer({
-			browsers: ['last 2 versions']
-		}))
-		.pipe(sourcemaps.write('./maps'))
-		.pipe(gulp.dest('./css'))
-		.pipe(notify('SCSS Compile - Successful'))
-		.pipe(browserSync.stream());
-});
-
 
 // js
 gulp.task('scripts', function(){
@@ -86,7 +70,7 @@ gulp.task('default', ['copy-images', 'sass', 'scripts'], function() {
 		server: "./",
 		port: 8000
 	});
-	gulp.watch("./src/scss/*.scss", ['sass', 'css-dist']);
+	gulp.watch("./src/scss/**/*.scss", ['sass']);
 	gulp.watch("./src/js/*.js", ['scripts']);
 	gulp.watch("./index.html").on('change', browserSync.reload);
 });

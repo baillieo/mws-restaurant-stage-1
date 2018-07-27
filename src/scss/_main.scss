@@ -19,17 +19,23 @@
   height: 80px;
   background-color: #252831;
   text-align:center;
+  justify-content: center;
+  align-items: center;
 }
 
-  margin: auto;
+.main-nav h1 {
+  margin: 0;
 }
+
 .main-nav h1 a {
   color: #fff;
   font-size: 14pt;
   font-weight: 200;
   letter-spacing: 10px;
+  margin: 0;
   text-transform: uppercase;
 }
+
 #breadcrumb {
   padding: 10px 40px 16px;
   list-style: none;
@@ -53,7 +59,7 @@
 
 /* Add a color to all links inside the list */
 #breadcrumb li a {
-  color: #0275d8;
+  color: $primary-color;
   text-decoration: none;
 }
 
@@ -71,12 +77,21 @@
 /* ====================== Restaurant Filtering ====================== */
 .filter-options {
   width: 100%;
-  background-color: #3397DB;
+  background-color: $primary-color;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   display: flex;
   padding-top: 10px;
+  &__box {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 0 10px;
+  }
+  &__label {
+    color: #fff;
+  }
 }
 @media(min-width: 371px){
   .filter-options {
@@ -97,8 +112,6 @@
   font-size: 11pt;
   height: 35px;
   letter-spacing: 0;
-  margin: 10px;
-  padding: 0 10px;
   width: 200px;
   max-width: 100%;
 }
@@ -146,7 +159,7 @@
   min-width: 100%;
 }
 #restaurants-list li h2 {
-  color: #f18200;
+  color: $primary-color;
   font-family: Arial,sans-serif;
   font-size: 14pt;
   font-weight: 200;
@@ -162,7 +175,7 @@
   margin-left: 10px;
 }
 #restaurants-list li a {
-  background-color: orange;
+  background-color: $primary-color;
   border-bottom: 3px solid #eee;
   color: #fff;
   display: inline-block;
@@ -174,4 +187,14 @@
   text-transform: uppercase;
   
   margin-left: 10px;
+}
+
+#footer {
+  background-color: #000;
+  a {
+    color: #fff;
+    &:hover {
+      color: darken(#fff, 10%);
+    }
+  }
 }

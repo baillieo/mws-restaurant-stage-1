@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 	<!-- Unicode setting -->
@@ -37,14 +37,18 @@
 		<section>
 			<div class="filter-options">
 				<h2>Filter Results</h2>
-				<label for="neighborhoods-select" style="display: none;">neighborhoods-select</label>
-				<select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()" role="listbox">
-					<option value="all" role="option">All Neighborhoods</option>
-				</select>
-				<label for="neighborhoods-select" style="display: none;">Cusines</label>
-				<select id="cuisines-select" name="cuisines" onchange="updateRestaurants()" role="listbox">
-					<option value="all" role="option">All Cuisines</option>
-				</select>
+				<div class="filter-options__box">	
+					<label for="neighborhoods-select" class="filter-options__label">Neighborhoods</label>
+					<select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()" role="listbox">
+						<option value="all" role="option">All Neighborhoods</option>
+					</select>
+				</div>
+				<div class="filter-options__box">	
+					<label for="cuisines-select" class="filter-options__label">Cuisines</label>
+					<select id="cuisines-select" name="cuisines" onchange="updateRestaurants()" role="listbox">
+						<option value="all" role="option">All Cuisines</option>
+					</select>
+				</div>
 			</div>
 			<ul id="restaurants-list" role="list"></ul>
 		</section>
