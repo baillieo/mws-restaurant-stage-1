@@ -34,10 +34,12 @@ gulp.task('copy-images', function(){
 // sass
 gulp.task('sass', function () {
 	return gulp.src('./src/scss/styles.scss')
-		.pipe(sass().on('error', sass.logError))
+		.pipe(sourcemaps.init())
+		.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
 		.pipe(autoprefixer({
 			browsers: ['last 2 versions']
 		}))
+		.pipe(sourcemaps.write('./maps'))
 		.pipe(gulp.dest('./css'))
 		.pipe(notify('SCSS Compile - Successful'))
 		.pipe(browserSync.stream());
@@ -60,13 +62,17 @@ gulp.task('sass-dist', function () {
 
 // js
 gulp.task('scripts', function(){
-	return gulp.src(['./src/js/idb.js', './src/js/dbhelper.js', './src/js/main.js', './src/js/restaurant_info.js'])
-		.pipe(gulp.dest('./js'));
+	return gulp.src(['./src/js/dbhelper.js', './src/js/main.js', './src/js/restaurant_info.js'])
+		.pipe(sourcemaps.init())
+		.pipe(uglify())
+		.pipe(sourcemaps.write('./maps'))
+		.pipe(gulp.dest('./js'))
+		.pipe(browserSync.stream());
 });
 
 // js production
 gulp.task('scripts-dist', function(){
-	return gulp.src(['./src/js/idb.js', './src/js/dbhelper.js', './src/js/main.js', './src/js/restaurant_info.js'])
+	return gulp.src(['./src/js/dbhelper.js', './src/js/main.js', './src/js/restaurant_info.js'])
 		.pipe(plumber())
 		.pipe(sourcemaps.init())
 		.pipe(uglify())

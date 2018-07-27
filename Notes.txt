@@ -37,7 +37,7 @@ READme*
   	*Attempted to concatenate js files but issues with DBhelper async calls not responding soon enough	
 
 - AJAX from development server*
-- JSON reoponses are cached in indexedDB
+- JSON reoponses are cached in indexedDB*
 
 - maintain responsiveness
 - maintain accessibilty features
