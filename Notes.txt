@@ -39,10 +39,18 @@ READme*
 - AJAX from development server*
 - JSON reoponses are cached in indexedDB*
 
-- maintain responsiveness
-- maintain accessibilty features
+- maintain responsiveness*
+- maintain accessibilty features*
 
 - lighthouse
-	- Progressive Web App: >90
-	- Performance: >70
-	- Accessability: >90
+	- Progressive Web App: >90*
+	- Performance: >70*
+	- Accessability: >90*
+
+// === Part 3
+
+- Favourite feature*
+- Add Tenth restaurant image
+- Review form front end
+- Review form submission to server
+- Review form submission to database

@@ -80,8 +80,35 @@ fetchRestaurantFromURL = (callback) => {
  * Create restaurant HTML and add it to the webpage
  */
 fillRestaurantHTML = (restaurant = self.restaurant) => {
+
+
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
+
+  // Import checkbox details whilst the restaurant is being rendered
+  const faveCon = document.getElementById('faveCon');
+  const faveBox = faveCon.childNodes[1];
+  faveBox.dataset.check = restaurant.is_favorite;
+   if(faveBox.dataset.check === "false"){
+      faveBox.style.backgroundColor = "#f3f3f3";
+      faveBox.setAttribute('aria-checked', 'false');
+    } else {
+      faveBox.style.backgroundColor = "black";
+      faveBox.setAttribute('aria-checked', 'true');
+    }
+
+  faveCon.addEventListener('click', function(){
+    if(faveBox.dataset.check === "false"){
+      faveBox.dataset.check = true;
+      faveBox.style.backgroundColor = "black";
+      faveBox.setAttribute('aria-checked', true);
+    } else {
+      faveBox.dataset.check = false;
+      faveBox.style.backgroundColor = "#f3f3f3";
+       faveBox.setAttribute('aria-checked', false);
+    }
+    DBHelper.faveToggle(restaurant, faveBox.dataset.check)
+  })
 
   const address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
@@ -98,6 +125,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   if (restaurant.operating_hours) {
     fillRestaurantHoursHTML();
   }
+  
   // fill reviews
   fillReviewsHTML();
 }
@@ -197,3 +225,4 @@ getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
