@@ -85,15 +85,24 @@
   list-style-type: none;
   margin: 0 0 30px;
   overflow: hidden;
-  padding: 20px;
   position: relative;
-  width: calc(100% - 40px);
+  width: 100%;
+}
+#reviews-list li p:first-child {
+  color: #fff;
+  background-color: $primary-color;
+  padding: 10px;
+}
+ #reviews-list li p:nth-of-type(2) {
+  font-weight: bold;
+  float: right;
 }
  #reviews-list li:last-child {
-  margin-bottom: 113px;
+  margin-bottom: 50px;
 }
  #reviews-list li p {
-  margin: 0 0 10px;
+  padding: 10px;
+  margin: 0;
 }
 #restaurant-hours {
   padding-bottom: 30px; 

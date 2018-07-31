@@ -21,7 +21,7 @@
 
 		// AJX via fetch
 		const port = 1337 // Change this to your server port
-		return `http://localhost:${port}/restaurants`;
+		return `http://localhost:${port}/`;
 	}
 
 	/**
@@ -33,6 +33,8 @@
 	 	} else {
 	 		return idb.open('restaurants', 1, function (upgradeDb) {
 	 			upgradeDb.createObjectStore('restaurant-data', { keyPath: 'id' });
+	 			upgradeDb.createObjectStore('restaurant-reviews', { keyPath: 'id' });
+	 			upgradeDb.createObjectStore('restaurant-reviews-offline', { keyPath: 'createdAt' });
 	 		});
 	 	}
 	 }
@@ -42,7 +44,7 @@
 	 * Fetch all restaurants.
 	 */
 	 static fetchRestaurants(callback) {
-	 	let url = DBHelper.DATABASE_URL;
+	 	let url = `${DBHelper.DATABASE_URL}restaurants`;
 		// Try to pull data from indexedDb
 		DBHelper.dbPromise.then(db => {
 			const tx = db.transaction('restaurant-data');
@@ -160,6 +162,106 @@
 	}
 
 	/**
+	 * Fetch restaurant reviews
+	 */
+	 static fetchRestaurantReviews(restaurant, callback) {
+		DBHelper.dbPromise.then(db => {
+			const tx = db.transaction('restaurant-reviews');
+			const store = tx.objectStore('restaurant-reviews');
+			store.getAll().then(res => {
+				if (res.filter(res => res.restaurant_id === restaurant.id).length > 0) {
+					callback(null, res)
+				} else {
+					fetch(`${DBHelper.DATABASE_URL}reviews/?restaurant_id=${restaurant.id}`)
+					.then(res => res.json())
+					.then(reviews => {
+						this.dbPromise.then(db => {
+							const tx = db.transaction('restaurant-reviews', 'readwrite');
+							const store = tx.objectStore('restaurant-reviews');
+							reviews.map(review => store.put(review))
+						});
+						callback(null, reviews);
+					})
+					.catch(error => {
+						callback(error, null);
+					})
+				}
+			})
+		});
+	}
+
+	/**
+	 * Submit a review
+	 */
+
+	static submitReview(reviewData) {
+		return fetch(`${DBHelper.DATABASE_URL}reviews`, {
+			body: JSON.stringify(reviewData), 
+			credentials: 'same-origin', 
+			cache: 'no-cache', 
+			headers: {
+				'content-type': 'application/json'
+			},
+			mode: 'cors', 
+			method: 'POST',
+			referrer: 'no-referrer',
+			redirect: 'follow'
+		})
+		.then(res => {
+			res.json()
+				.then(reviewData => {
+					this.dbPromise.then(db => {
+						const tx = db.transaction('restaurant-reviews', 'readwrite');
+						const store = tx.objectStore('restaurant-reviews');
+						store.put(reviewData);
+					});
+					return reviewData;
+				})
+		})
+		.catch(error => {
+			reviewData['updatedAt'] = new Date().getTime();
+			
+			this.dbPromise.then(db => {
+				const tx = db.transaction('restaurant-reviews-offline', 'readwrite');
+				const store = tx.objectStore('restaurant-reviews-offline');
+				store.put(reviewData);
+				console.log('Review stored offline');
+			});
+			return;
+		});
+	}
+
+	/**
+	 * Submit offline reviews
+	 */
+
+	static submitOfflineReviews() {
+		DBHelper.dbPromise.then(db => {
+			if (!db) return;
+			const tx = db.transaction('restaurant-reviews-offline');
+			const store = tx.objectStore('restaurant-reviews-offline');
+			store.getAll().then(offlineReviews => {
+				console.log(offlineReviews);
+				offlineReviews.forEach(review => {
+					DBHelper.submitReview(review);
+				})
+				DBHelper.resetOfflineReviews();
+			})
+		})
+	}
+
+	/**
+	 * Reset offline reviews
+	 */
+	static resetOfflineReviews() {
+		DBHelper.dbPromise.then(db => {
+			const tx = db.transaction('offline-reviews', 'readwrite');
+			const store = tx.objectStore('offline-reviews').clear();
+		})
+		return;
+	}
+
+	/**
 	 * Fetch all cuisines with proper error handling.
 	 */
 	 static fetchCuisines(callback) {
@@ -220,18 +322,18 @@
  */
  static faveToggle(restaurant, isFave) {
  	console.log(isFave);
- 	fetch(`${DBHelper.DATABASE_URL}/${restaurant.id}/?is_favorite=${isFave}`, {
+ 	fetch(`${DBHelper.DATABASE_URL}restaurants/${restaurant.id}/?is_favorite=${isFave}`, {
  		method: 'PUT'
  	})
  	.then(res => res.json())
- 	.then(data => {
- 		console.log(data);
+ 	.then(res => {
+ 		console.log(res);
  		DBHelper.dbPromise.then(db => {
  			const tx = db.transaction('restaurant-data', 'readwrite');
  			const store = tx.objectStore('restaurant-data');
- 			store.put(data)
+ 			store.put(res)
  		});
- 		return data;
+ 		return res;
  	})
  	.catch(error => {
  		restaurant.is_favorite = isFave;

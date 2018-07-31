@@ -50,7 +50,8 @@ READme*
 // === Part 3
 
 - Favourite feature*
-- Add Tenth restaurant image
+- Pull current reviews in*
 - Review form front end
 - Review form submission to server
 - Review form submission to database
+- review form offline

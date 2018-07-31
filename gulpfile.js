@@ -31,6 +31,18 @@ gulp.task('copy-images', function(){
 		.pipe(gulp.dest('./img'));
 });
 
+// images
+gulp.task('copy-images-leaflet', function(){
+	return gulp.src('./src/img/vendor/*')
+		.pipe(imagemin({
+            progressive: true,
+            use: [pngquant()]
+        }))
+		.pipe(gulp.dest('./css/images'));
+});
+
+
+
 // sass
 gulp.task('sass', function () {
 	return gulp.src('./src/scss/styles.scss')
@@ -46,7 +58,7 @@ gulp.task('sass', function () {
 
 // js
 gulp.task('scripts', function(){
-	return gulp.src(['./src/js/dbhelper.js', './src/js/main.js', './src/js/restaurant_info.js'])
+	return gulp.src(['./src/js/leaflet.js','./src/js/dbhelper.js', './src/js/main.js', './src/js/restaurant_info.js'])
 		.pipe(sourcemaps.init())
 		.pipe(uglify())
 		.pipe(sourcemaps.write('./maps'))
@@ -54,24 +66,14 @@ gulp.task('scripts', function(){
 		.pipe(browserSync.stream());
 });
 
-// js production
-gulp.task('scripts-dist', function(){
-	return gulp.src(['./src/js/dbhelper.js', './src/js/main.js', './src/js/restaurant_info.js'])
-		.pipe(plumber())
-		.pipe(sourcemaps.init())
-		.pipe(uglify())
-		.pipe(sourcemaps.write('./maps'))
-		.pipe(gulp.dest('./js'));
-});
-
 // development
-gulp.task('default', ['copy-images', 'sass', 'scripts'], function() {
+gulp.task('default', ['copy-images', 'copy-images-leaflet', 'sass', 'scripts'], function() {
 	browserSync.init({
 		server: "./",
 		port: 8000
 	});
 	gulp.watch("./src/scss/**/*.scss", ['sass']);
-	gulp.watch("./src/js/*.js", ['scripts']);
+	gulp.watch("./src/js/**/*.js", ['scripts']);
 	gulp.watch("./index.html").on('change', browserSync.reload);
 });
 
