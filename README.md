@@ -39,9 +39,19 @@ debug: Port        : 1337
 
 ##### Download project
 
+###### Change directory
+```Change directory
+# cd ../
+```
+
 ###### Install project files
 ```Install data 
 # git clone git@github.com:baillieo/mws-restaurant-stage-1.git
+```
+
+###### Change directory
+```Change directory
+# cd mws-restaurant-stage-1
 ```
 
 ###### Install project dependencies
