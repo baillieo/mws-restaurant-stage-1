@@ -51,7 +51,7 @@ READme*
 
 - Favourite feature*
 - Pull current reviews in*
-- Review form front end
-- Review form submission to server
-- Review form submission to database
-- review form offline
+- Review form front end*
+- Review form submission to server*
+- Review form submission to database*
+- review form offline*
