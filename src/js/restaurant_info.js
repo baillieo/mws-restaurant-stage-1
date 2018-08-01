@@ -187,18 +187,23 @@ fillReviewsHTML = (reviews = self.restaurant.reviews, restaurant = self.restaura
  	const name = document.createElement('p');
  	name.setAttribute('aria-label', 'Reviewer\'s name');
  	name.innerHTML = review.name;
+ 	name.tabIndex = 0;
+
 
  	const date = document.createElement('p');
  	date.setAttribute('aria-label', 'Review date');
  	date.innerHTML = new Date().toDateString();
+ 	date.tabIndex = 0;
 
  	const rating = document.createElement('p');
  	rating.setAttribute('aria-label', 'Review rating');
  	rating.innerHTML = `Rating: ${review.rating}`;
+ 	rating.tabIndex = 0;
 
  	const comments = document.createElement('p');
  	comments.setAttribute('aria-label', 'Review comments');
  	comments.innerHTML = review.comments;
+ 	comments.tabIndex = 0;
 
  	li.appendChild(name);
  	li.appendChild(date);
