@@ -39,6 +39,12 @@ debug: Port        : 1337
 
 ##### Download project
 
+###### Create terminal tab
+```Create terminal tab
+# command + t
+```
+
+
 ###### Change directory
 ```Change directory
 # cd ../
