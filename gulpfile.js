@@ -14,8 +14,6 @@ sourcemaps = require('gulp-sourcemaps'),
 imagemin = require('gulp-imagemin'), // images - minify
 pngquant = require('imagemin-pngquant'), // images(png) - minify
 
-
-// rename = require("gulp-rename"), // rename minified files
 notify = require('gulp-notify'), // gulp notifications
 browserSync = require('browser-sync').create(), // server
 plumber = require('gulp-plumber'); // error handling
@@ -40,7 +38,6 @@ gulp.task('copy-images-leaflet', function(){
         }))
 		.pipe(gulp.dest('./css/images'));
 });
-
 
 
 // sass

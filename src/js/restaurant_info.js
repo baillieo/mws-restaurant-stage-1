@@ -88,8 +88,6 @@ const review_form = document.getElementById("review-form");
  * Create restaurant HTML and add it to the webpage
  */
  fillRestaurantHTML = (restaurant = self.restaurant) => {
-
-
  	const name = document.getElementById('restaurant-name');
  	name.innerHTML = restaurant.name;
 
@@ -184,22 +182,27 @@ fillReviewsHTML = (reviews = self.restaurant.reviews, restaurant = self.restaura
  */
  createReviewHTML = (review) => {
  	const li = document.createElement('li');
- 	const name = document.createElement('p');
- 	name.innerHTML = review.name;
- 	name.setAttribute('tabindex', 0);
- 	li.appendChild(name);
- 	const date = document.createElement('p'); 
- 	date.innerHTML = new Date(review.updatedAt).toDateString();
+ 	li.setAttribute('aria-label', 'review');
 
- 	li.appendChild(date);
+ 	const name = document.createElement('p');
+ 	name.setAttribute('aria-label', 'Reviewer\'s name');
+ 	name.innerHTML = review.name;
+
+ 	const date = document.createElement('p');
+ 	date.setAttribute('aria-label', 'Review date');
+ 	date.innerHTML = new Date().toDateString();
 
  	const rating = document.createElement('p');
+ 	rating.setAttribute('aria-label', 'Review rating');
  	rating.innerHTML = `Rating: ${review.rating}`;
- 	li.appendChild(rating);
 
  	const comments = document.createElement('p');
+ 	comments.setAttribute('aria-label', 'Review comments');
  	comments.innerHTML = review.comments;
- 	comments.setAttribute('tabindex', 0);
+
+ 	li.appendChild(name);
+ 	li.appendChild(date);
+ 	li.appendChild(rating);
  	li.appendChild(comments);
 
  	return li;

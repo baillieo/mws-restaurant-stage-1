@@ -1,8 +1,6 @@
 
 // idb library
 "use strict";!function(){function e(e){return new Promise(function(t,n){e.onsuccess=function(){t(e.result)},e.onerror=function(){n(e.error)}})}function t(t,n,o){var r,i=new Promise(function(i,u){e(r=t[n].apply(t,o)).then(i,u)});return i.request=r,i}function n(e,t,n){n.forEach(function(n){Object.defineProperty(e.prototype,n,{get:function(){return this[t][n]},set:function(e){this[t][n]=e}})})}function o(e,n,o,r){r.forEach(function(r){r in o.prototype&&(e.prototype[r]=function(){return t(this[n],r,arguments)})})}function r(e,t,n,o){o.forEach(function(o){o in n.prototype&&(e.prototype[o]=function(){return this[t][o].apply(this[t],arguments)})})}function i(e,n,o,r){r.forEach(function(r){r in o.prototype&&(e.prototype[r]=function(){return e=this[n],(o=t(e,r,arguments)).then(function(e){if(e)return new c(e,o.request)});var e,o})})}function u(e){this._index=e}function c(e,t){this._cursor=e,this._request=t}function s(e){this._store=e}function p(e){this._tx=e,this.complete=new Promise(function(t,n){e.oncomplete=function(){t()},e.onerror=function(){n(e.error)},e.onabort=function(){n(e.error)}})}function a(e,t,n){this._db=e,this.oldVersion=t,this.transaction=new p(n)}function f(e){this._db=e}n(u,"_index",["name","keyPath","multiEntry","unique"]),o(u,"_index",IDBIndex,["get","getKey","getAll","getAllKeys","count"]),i(u,"_index",IDBIndex,["openCursor","openKeyCursor"]),n(c,"_cursor",["direction","key","primaryKey","value"]),o(c,"_cursor",IDBCursor,["update","delete"]),["advance","continue","continuePrimaryKey"].forEach(function(t){t in IDBCursor.prototype&&(c.prototype[t]=function(){var n=this,o=arguments;return Promise.resolve().then(function(){return n._cursor[t].apply(n._cursor,o),e(n._request).then(function(e){if(e)return new c(e,n._request)})})})}),s.prototype.createIndex=function(){return new u(this._store.createIndex.apply(this._store,arguments))},s.prototype.index=function(){return new u(this._store.index.apply(this._store,arguments))},n(s,"_store",["name","keyPath","indexNames","autoIncrement"]),o(s,"_store",IDBObjectStore,["put","add","delete","clear","get","getAll","getKey","getAllKeys","count"]),i(s,"_store",IDBObjectStore,["openCursor","openKeyCursor"]),r(s,"_store",IDBObjectStore,["deleteIndex"]),p.prototype.objectStore=function(){return new s(this._tx.objectStore.apply(this._tx,arguments))},n(p,"_tx",["objectStoreNames","mode"]),r(p,"_tx",IDBTransaction,["abort"]),a.prototype.createObjectStore=function(){return new s(this._db.createObjectStore.apply(this._db,arguments))},n(a,"_db",["name","version","objectStoreNames"]),r(a,"_db",IDBDatabase,["deleteObjectStore","close"]),f.prototype.transaction=function(){return new p(this._db.transaction.apply(this._db,arguments))},n(f,"_db",["name","version","objectStoreNames"]),r(f,"_db",IDBDatabase,["close"]),["openCursor","openKeyCursor"].forEach(function(e){[s,u].forEach(function(t){e in t.prototype&&(t.prototype[e.replace("open","iterate")]=function(){var t,n=(t=arguments,Array.prototype.slice.call(t)),o=n[n.length-1],r=this._store||this._index,i=r[e].apply(r,n.slice(0,-1));i.onsuccess=function(){o(i.result)}})})}),[u,s].forEach(function(e){e.prototype.getAll||(e.prototype.getAll=function(e,t){var n=this,o=[];return new Promise(function(r){n.iterateCursor(e,function(e){e?(o.push(e.value),void 0===t||o.length!=t?e.continue():r(o)):r(o)})})})});var d={open:function(e,n,o){var r=t(indexedDB,"open",[e,n]),i=r.request;return i&&(i.onupgradeneeded=function(e){o&&o(new a(i.result,e.oldVersion,i.transaction))}),r.then(function(e){return new f(e)})},delete:function(e){return t(indexedDB,"deleteDatabase",[e])}};"undefined"!=typeof module?(module.exports=d,module.exports.default=module.exports):self.idb=d}();
-//# sourceMappingURL=maps/idb.js.map
-
 
 
 /**
@@ -23,9 +21,9 @@
 		const port = 1337 // Change this to your server port
 		return `http://localhost:${port}/`;
 	}
-
 	/**
 	 * Create indexedDb database
+
 	 */
 	 static get dbPromise(){
 	 	if (!navigator.serviceWorker) {
@@ -34,7 +32,7 @@
 	 		return idb.open('restaurants', 1, function (upgradeDb) {
 	 			upgradeDb.createObjectStore('restaurant-data', { keyPath: 'id' });
 	 			upgradeDb.createObjectStore('restaurant-reviews', { keyPath: 'id' });
-	 			upgradeDb.createObjectStore('restaurant-reviews-offline', { keyPath: 'createdAt' });
+	 			upgradeDb.createObjectStore('restaurant-reviews-offline', { keyPath: 'id' });
 	 		});
 	 	}
 	 }
@@ -56,6 +54,14 @@
 					fetch(url)
 					.then(res => res.json()) 
 					.then(function(restaurants){ 
+						restaurants.filter(function(res){
+							const num = 10;
+							if (res.id === 10) {
+								fetch(`${DBHelper.DATABASE_URL}restaurants/10/?photograph=${num}`, {
+									method: 'post'
+								})
+							}
+						})
 						// enable 'readwrite' to add objects to indexedDb 
 						const tx = db.transaction('restaurant-data', 'readwrite');
 						const objStore = tx.objectStore('restaurant-data');
@@ -165,101 +171,96 @@
 	 * Fetch restaurant reviews
 	 */
 	 static fetchRestaurantReviews(restaurant, callback) {
-		DBHelper.dbPromise.then(db => {
-			const tx = db.transaction('restaurant-reviews');
-			const store = tx.objectStore('restaurant-reviews');
-			store.getAll().then(res => {
-				if (res.filter(res => res.restaurant_id === restaurant.id).length > 0) {
-					callback(null, res)
-				} else {
-					fetch(`${DBHelper.DATABASE_URL}reviews/?restaurant_id=${restaurant.id}`)
-					.then(res => res.json())
-					.then(reviews => {
-						this.dbPromise.then(db => {
-							const tx = db.transaction('restaurant-reviews', 'readwrite');
-							const store = tx.objectStore('restaurant-reviews');
-							reviews.map(review => store.put(review))
-						});
-						callback(null, reviews);
-					})
-					.catch(error => {
-						callback(error, null);
-					})
-				}
-			})
-		});
-	}
+	 	DBHelper.submitOfflineReviews();
+	 	DBHelper.dbPromise.then(db => {
+	 		const tx = db.transaction('restaurant-reviews');
+	 		const store = tx.objectStore('restaurant-reviews');
+	 		store.getAll().then(res => {
+	 			if (res.filter(res => res.restaurant_id === restaurant.id).length > 0) {
+	 				callback(null, res)
+	 			} else {
+	 				fetch(`${DBHelper.DATABASE_URL}reviews/?restaurant_id=${restaurant.id}`)
+	 				.then(res => res.json())
+	 				.then(reviews => {
+	 					this.dbPromise.then(db => {
+	 						const tx = db.transaction('restaurant-reviews', 'readwrite');
+	 						const store = tx.objectStore('restaurant-reviews');
+	 						reviews.map(review => store.put(review))
+	 					});
+	 					callback(null, reviews);
+	 				})
+	 				.catch(error => {
+	 					callback(error, null);
+	 				})
+	 			}
+	 		})
+	 	});
+	 }
 
 	/**
 	 * Submit a review
 	 */
 
-	static submitReview(reviewData) {
-		return fetch(`${DBHelper.DATABASE_URL}reviews`, {
-			body: JSON.stringify(reviewData), 
-			credentials: 'same-origin', 
-			cache: 'no-cache', 
-			headers: {
-				'content-type': 'application/json'
-			},
-			mode: 'cors', 
-			method: 'POST',
-			referrer: 'no-referrer',
-			redirect: 'follow'
-		})
-		.then(res => {
-			res.json()
-				.then(reviewData => {
-					this.dbPromise.then(db => {
-						const tx = db.transaction('restaurant-reviews', 'readwrite');
-						const store = tx.objectStore('restaurant-reviews');
-						store.put(reviewData);
-					});
-					return reviewData;
-				})
-		})
-		.catch(error => {
-			reviewData['updatedAt'] = new Date().getTime();
-			
-			this.dbPromise.then(db => {
-				const tx = db.transaction('restaurant-reviews-offline', 'readwrite');
-				const store = tx.objectStore('restaurant-reviews-offline');
-				store.put(reviewData);
-				console.log('Review stored offline');
-			});
-			return;
-		});
-	}
+	 static submitReview(reviewData) {
+	 	return fetch(`${DBHelper.DATABASE_URL}reviews`, {
+	 		body: JSON.stringify(reviewData), 
+	 		credentials: 'same-origin', 
+	 		cache: 'no-cache', 
+	 		headers: {
+	 			'content-type': 'application/json'
+	 		},
+	 		mode: 'cors', 
+	 		method: 'POST',
+	 		referrer: 'no-referrer',
+	 		redirect: 'follow'
+	 	})
+	 	.then(res => {
+	 		res.json()
+	 		.then(reviewData => {
+	 			this.dbPromise.then(db => {
+	 				const tx = db.transaction('restaurant-reviews', 'readwrite');
+	 				const store = tx.objectStore('restaurant-reviews');
+	 				store.put(reviewData);
+	 			});
+	 			return reviewData;
+	 		})
+	 	})
+	 	.catch(error => {
+	 		reviewData['id'] = Math.floor(Math.random() * 100000000) + 1;
+
+	 		this.dbPromise.then(db => {
+	 			const tx = db.transaction('restaurant-reviews-offline', 'readwrite');
+	 			const store = tx.objectStore('restaurant-reviews-offline');
+	 			store.put(reviewData);
+	 		});
+	 		return;
+	 	});
+	 }
 
 	/**
 	 * Submit offline reviews
 	 */
 
-	static submitOfflineReviews() {
-		DBHelper.dbPromise.then(db => {
-			if (!db) return;
-			const tx = db.transaction('restaurant-reviews-offline');
-			const store = tx.objectStore('restaurant-reviews-offline');
-			store.getAll().then(offlineReviews => {
-				console.log(offlineReviews);
-				offlineReviews.forEach(review => {
-					DBHelper.submitReview(review);
-				})
-				DBHelper.resetOfflineReviews();
-			})
-		})
-	}
+	 static submitOfflineReviews() {
+	 	DBHelper.dbPromise.then(db => {
+	 		const tx = db.transaction('restaurant-reviews-offline');
+	 		const objStore = tx.objectStore('restaurant-reviews-offline');
+	 		objStore.getAll().then(offlineReviews => {
+	 			offlineReviews.map(review => DBHelper.submitReview(review))
+	 			DBHelper.resetOfflineReviews();
+	 		})
+	 	})
+	 }
 
 	/**
 	 * Reset offline reviews
 	 */
-	static resetOfflineReviews() {
-		DBHelper.dbPromise.then(db => {
-			const tx = db.transaction('offline-reviews', 'readwrite');
-			const store = tx.objectStore('offline-reviews').clear();
-		})
-		return;
-	}
+	 static resetOfflineReviews() {
+	 	DBHelper.dbPromise.then(db => {
+	 		const tx = db.transaction('restaurant-reviews-offline', 'readwrite');
+	 		const objStore = tx.objectStore('restaurant-reviews-offline').clear();
+	 	});
+	 }
 
 	/**
 	 * Fetch all cuisines with proper error handling.
