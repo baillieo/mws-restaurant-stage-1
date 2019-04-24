@@ -33,8 +33,7 @@ npm i sails -g
 node server
 ```
 ### You should now have access to your API server environment
-debug: Environment : development
-debug: Port        : 1337
+Port        : 1337
 
 
 ##### Download project
