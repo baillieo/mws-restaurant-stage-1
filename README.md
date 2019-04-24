@@ -13,24 +13,24 @@ For the **Restaurant Reviews** projects, you will incrementally convert a static
 
 ###### Install data files
 ```Install data 
-# git clone git@github.com:udacity/mws-restaurant-stage-3.git
+git clone git@github.com:udacity/mws-restaurant-stage-3.git
 ```
 
 ###### Change directory
 ```Change directory
-# cd mws-restaurant-stage-3
+cd mws-restaurant-stage-3
 ```
 ###### Install project dependancies
 ```Install project dependancies
-# npm i
+npm i
 ```
 ###### Install Sails.js globally
 ```Install sails global
-# npm i sails -g
+npm i sails -g
 ```
 ###### Start the server
 ```Start server
-# node server
+node server
 ```
 ### You should now have access to your API server environment
 debug: Environment : development
@@ -41,33 +41,33 @@ debug: Port        : 1337
 
 ###### Create terminal tab
 ```Create terminal tab
-# command + t
+command + t
 ```
 
 
 ###### Change directory
 ```Change directory
-# cd ../
+cd ../
 ```
 
 ###### Install project files
 ```Install data 
-# git clone git@github.com:baillieo/mws-restaurant-stage-1.git
+git clone git@github.com:baillieo/mws-restaurant-stage-1.git
 ```
 
 ###### Change directory
 ```Change directory
-# cd mws-restaurant-stage-1
+cd mws-restaurant-stage-1
 ```
 
 ###### Install project dependencies
 ```Install data 
-# npm i
+npm i
 ```
 
 ###### Start the server
 ```Install data 
-# gulp
+gulp
 ```
 
 
